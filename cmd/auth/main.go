@@ -8,10 +8,11 @@ import (
 	"github.com/go-chi/chi"
 )
 
-	
 func main() {
 	r := chi.NewRouter()
 	storage := db.New()
-	s:= service.New(storage)
-	http.New(r, s)
+	tokenStorage := db.NewTokenStrorage()
+	s := service.New(storage, tokenStorage)
+	server := http.New(r, s)
+	server.Start()
 }
